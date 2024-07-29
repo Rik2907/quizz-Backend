@@ -13,4 +13,5 @@ router.get('/getPlayed/:userId',protect,gameContoller.getplayedgames);
 //router.get('/joinLobby/:game_id/:user_id',protect,gameContoller.joinLobby);
 router.get('/getGame/:game_id',protect,gameContoller.getGameid);
 router.get('/formGroup/:game_id',protect,gameContoller.formGroup);
+router.get('/leaderboard',protect,gameContoller.leaderBoard);
 module.exports=router;
