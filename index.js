@@ -11,7 +11,7 @@ const xss=require('xss-clean');
 const cors = require('cors');
 const Pusher = require('pusher');
 const mongoSanatize=require('express-mongo-sanitize');
-
+//const User=require('./Models/user');
 const bodyParser = require('body-parser');
 
 const {createChat}=require('./Controller/chatController');
@@ -100,7 +100,7 @@ console.log(users);
 //  });
 const deleteAllGames = async (req, res) => {
   try {
-      const result = await Game.deleteMany({});
+      const result = await User.deleteMany({});
       res.status(200).json({
           message: `${result.deletedCount} games deleted.`,
       });

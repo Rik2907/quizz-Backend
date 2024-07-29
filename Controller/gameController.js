@@ -281,6 +281,21 @@ exports.finishgame=catchAsync(async(req,res,next)=>{
     gameId=new mongoose.Types.ObjectId(gameId);
     userId=new mongoose.Types.ObjectId(userId);
     newScore=Number(newScore);
+    const game=await Group.findById(gameId);
+    let wonnerId=userId;
+    if(game.score!==-1 && game.score >newScore){
+        wonnerId=game.winner;
+    }
+    // const par=await User.findById(wonnerId);
+    // console.log(par);
+    const won='won';
+    if(game.score!==-1){
+    const updatedUser = await User.findByIdAndUpdate(
+      wonnerId,
+      { $inc: { [won]: 1 } },
+      { new: true }
+    );
+  }
     //console.log(userId,gameId,newScore);
     const updatedGame = await Group.findOneAndUpdate(
         { _id: gameId },
@@ -465,6 +480,17 @@ exports.getGameid=catchAsync(async(req,res,next)=>{
     game :game[0],
    });
 });
+exports.leaderBoard=catchAsync(async(req,res,next)=>{
+    //console.log("YES");
+    const won='won';
+    const users=await User.find({}).sort({ [won]: -1 });
+    //console.log(users);
+    res.status(200).json({
+     status:'success',
+     users
+    });
+});
+
 // module.exports={
 //     joinGame,
 // }

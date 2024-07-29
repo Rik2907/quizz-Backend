@@ -35,6 +35,10 @@ const userSchema=new Schema({
         message:'Password doesnot match'
     }
   },
+  won: {
+    type: Number,
+    default: 0,
+  },
   createdAt: {
     type: Date,
     default: Date.now
